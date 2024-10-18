@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let chart;
     let data = [];
 
-    const oneDriveCSVLink = 'https://1drv.ms/u/s!AtUJgcJFu2DN02kHxleOe5uU4gFD?e=H7Acws';  // OneDrive shared link to CSV file
+    const oneDriveCSVLink = 'https://1drv.ms/x/c/32a1dc287c4481c2/ESkGU-eWJFBIgaVNUaYroHEBUncuUcLU-wqU81YzjudFiw?e=dw9C5y';  // OneDrive shared link to CSV file
 
     // Fetch CSV data from OneDrive
     async function fetchCSV() {
