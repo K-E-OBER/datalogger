@@ -1,17 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
     const chartContext = document.getElementById('temperatureChart').getContext('2d');
     let chart;
-    let data = [];
+    let data = [];  // Store all data (existing + new)
 
-    const oneDriveCSVLink = 'https://1drv.ms/x/c/32a1dc287c4481c2/ESkGU-eWJFBIgaVNUaYroHEBUncuUcLU-wqU81YzjudFiw?e=dw9C5y';  // OneDrive shared link to CSV file
+    const oneDriveCSVLink = 'https://1drv.ms/u/s!AtUJgcJFu2DN02kHxleOe5uU4gFD?e=H7Acws';  // OneDrive shared link
 
     // Fetch CSV data from OneDrive
     async function fetchCSV() {
         try {
             const response = await fetch(oneDriveCSVLink);
             const csvText = await response.text();
-            data = parseCSV(csvText);  // Parse the CSV data
-            renderChart();  // Render the chart
+            const parsedData = parseCSV(csvText);
+            data = data.concat(parsedData);  // Merge the newly fetched data with the existing data array
+            renderChart();  // Render the chart with the merged data
         } catch (error) {
             console.error('Error fetching the CSV file:', error);
         }
@@ -65,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add new data to the array
         data.push({ date: newDate, temperature: newTemperature });
 
-        // Update the chart
+        // Update the chart with the new data
         renderChart();
 
         // Show the download button
@@ -74,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Download the updated CSV file
     document.getElementById('downloadBtn').addEventListener('click', () => {
-        const updatedCSV = convertToCSV(data);
+        const updatedCSV = convertToCSV(data);  // Use the merged data to generate the CSV
         downloadCSV(updatedCSV, 'updated_temperature_data.csv');
     });
 
